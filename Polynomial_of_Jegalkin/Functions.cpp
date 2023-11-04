@@ -5,16 +5,16 @@
 
 void printBinary(int num, int count)
 {
-	int* PlnmlNmbr = new int[count];//память под член полинома
+	int* PlnmlNmbr = new int[count];//memory for a number of polynomail 
 	int zeroCounter = 0;
 
-	for (int i = count - 1, j = 0; i >= 0; --i, j++)//преддставляет индекс вектора проможетучного результата в двоичном виде
-	{											   //соответсвие индекса вектора и двоичного предствление производится согласно таблице истинности  
+	for (int i = count - 1, j = 0; i >= 0; --i, j++)//represents the index of the promotional result vector in binary form
+	{						//the correspondence between the vector index and the binary representation is made according to the truth table 
 		int bit = (num >> i) & 1;
 		PlnmlNmbr[j] = bit;
 	}
 
-	for (int i = 0; i < count; i++)//формирует удобочитаемый вид для пользователя 
+	for (int i = 0; i < count; i++)//creates a readable view for the user
 	{
 		if (PlnmlNmbr[i] == 1)
 		{
@@ -28,14 +28,13 @@ void printBinary(int num, int count)
 	}
 }
 
-int* TrianglePascal(int* BoolFunc, int* Result, int size)//считает труегольник паскаля
+int* TrianglePascal(int* BoolFunc, int* Result, int size)//count Pascal's triangle
 {
 	int newsize = size;
-	for (int i = 0; i < size; i++)//два цикла сторят труегольник паскаля 
+	for (int i = 0; i < size; i++)//these two loops make Pascal's triangle
 	{
-		Result[i] = BoolFunc[0];//формарование вектора промежуточных результатов(крайнее левое "ребро" треугольника)
-		newsize--;					  //с помощью данного ребра вычисляются члены полинома Жегалкина 
-
+		Result[i] = BoolFunc[0];//forming a vector of intermediate results (the leftmost вЂњedgeвЂќ of the triangle)
+		newsize--;					  //using this edge, the terms of the Zhegalkin polynomial are calculated
 		for (int i = 0; i < newsize; i++)
 			BoolFunc[i] = (BoolFunc[i] + BoolFunc[i + 1]) % 2;
 	}
@@ -45,23 +44,23 @@ int* TrianglePascal(int* BoolFunc, int* Result, int size)//считает труегольник п
 
 void ReadingFileOutputResults(int* BoolFunc, int* RsltTrnglPscl, int size, int countOfVariables)
 {
-	std::ifstream readFile("E:\\C++\\Zhegalkin-polynomial\\BoolFunctions.txt");
+	std::ifstream readFile("BoolFunctions.txt");
 	if (!readFile.is_open())
 	{
 		std::cerr << "Error." << std::endl;
 		exit(1);
 	}
 
-	// Чтение файла построчно и обработка
+	// Г—ГІГҐГ­ГЁГҐ ГґГ Г©Г«Г  ГЇГ®Г±ГІГ°Г®Г·Г­Г® ГЁ Г®ГЎГ°Г ГЎГ®ГІГЄГ 
 	std::string line;
 
-	std::cout << "\n\nЧлены полинома Жегалкина, которые xorятся между собой: \n\n";
+	std::cout << "\n\nГ—Г«ГҐГ­Г» ГЇГ®Г«ГЁГ­Г®Г¬Г  Г†ГҐГЈГ Г«ГЄГЁГ­Г , ГЄГ®ГІГ®Г°Г»ГҐ xorГїГІГ±Гї Г¬ГҐГ¦Г¤Гі Г±Г®ГЎГ®Г©: \n\n";
 
 	while (std::getline(readFile, line))
 	{
-		//Пропускаем пустые строки, если ими раздедены сторки в файле
+		//skipping empty lines in the file
 		if (line == "") continue;
-		// Пропускаем пробелы и запятые из строки
+		// skipping commas and spaces 
 		for (int i = 0, j = 0; j < size; i++)
 		{
 			char c = line[i];
@@ -80,7 +79,7 @@ void ReadingFileOutputResults(int* BoolFunc, int* RsltTrnglPscl, int size, int c
 		{
 			if (1 == RsltTrnglPscl[i])
 			{
-				printBinary(i, countOfVariables);//вывод членов полинома Жегалкина 
+				printBinary(i, countOfVariables);//output numbers of Zhegalkin's polynomial 
 				std::cout << "   ";
 			}
 		}
